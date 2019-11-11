@@ -1,0 +1,15 @@
+{
+    "name": "dirk-baumeister/sql-injection-checker",
+    "description": "A simple sql injection checker script",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Dirk Baumeister",
+            "email": "dev@dirk-baumeister.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "DirkBaumeister\\SQLInjectionChecker\\": "src/" }
+    },
+    "require": {}
+}
