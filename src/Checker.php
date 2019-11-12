@@ -61,18 +61,26 @@ class Checker
     {
         foreach(self::$method as $key => $val)
         {
+            if(is_array($key)) {
+                $key = serialize($key);
+            }
+            if(is_array($val)) {
+                $val = serialize($val);
+            }
             $k = urldecode(strtolower($key));
             $v = urldecode(strtolower($val));
 
-            foreach(self::$operators as $operator)
-            {
-                if (preg_match("/".$operator."/i", $k)) {
-                    self::$suspect = ['operator' => $operator, 'key' => $k, 'value' => $v];
-                    return true;
-                }
-                if (preg_match("/".$operator."/i", $v)) {
-                    self::$suspect = ['operator' => $operator, 'key' => $k, 'value' => $v];
-                    return true;
+            if(strlen(trim($k)) > 0 && strlen(trim($v)) > 0) {
+                foreach(self::$operators as $operator)
+                {
+                    if (stripos($k, $operator) !== false) {
+                        self::$suspect = ['operator' => $operator, 'key' => $k, 'value' => $v];
+                        return true;
+                    }
+                    if (stripos($v, $operator) !== false) {
+                        self::$suspect = ['operator' => $operator, 'key' => $k, 'value' => $v];
+                        return true;
+                    }
                 }
             }
         }
